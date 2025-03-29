@@ -15,12 +15,11 @@ const HarvardApplicationForm = () => {
     });
 
     const handleChange = (e) => {
-        const { name, value, type } = e.target;
-        if (type === "file") {
-            setFormData({ ...formData, [name]: e.target.files[0] });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
+        const { name, value, type, files } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: type === "file" ? files[0] : value
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -70,7 +69,8 @@ const styles = {
         padding: "30px",
         borderRadius: "10px",
         boxShadow: "0 0 15px rgba(0, 0, 0, 0.2)",
-        width: "60%",
+        width: "80%",
+        maxWidth: "800px",
         margin: "50px auto",
         fontFamily: "Georgia, serif",
         color: "white"
